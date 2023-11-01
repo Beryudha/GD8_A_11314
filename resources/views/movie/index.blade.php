@@ -29,11 +29,12 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        <a href="{{ route('movie.create') }}" class="btn btnmd btn-success mb-3">TAMBAH MOVIE</a>
+                        <a href="{{ route('movie.create') }}" class="btn btn-md btn-success mb-3">TAMBAH MOVIE</a>
                         <div class="table-responsive p-0">
                             <table class="table table-hover textnowrap">
                                 <thead>
                                     <tr>
+                                        <th class="text-center">Image</th>
                                         <th class="text-center">Title</th>
                                         <th class="text-center">Director</th>
                                         <th class="text-center">Duration/min</th>
@@ -43,6 +44,9 @@
                                 <tbody>
                                     @forelse ($movie as $item)
                                     <tr>
+                                        <td class="text-center">
+                                            <img src="{{ asset('/' . $item->image) }}" alt="{{$item->image}}" style="width: 100px;">
+                                        </td>
                                         <td class="text-center">{{ $item->title }}</td>
                                         <td class="text-center">{{ $item->director }}</td>
                                         <td class="text-center">{{ $item->duration}}</td>

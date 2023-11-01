@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Exception;
 use Illuminate\Http\Request;
 use App\Models\Movie; /* import model movie */
+use Illuminate\Support\Str;
 
 class MovieController extends Controller
 {
@@ -41,14 +42,24 @@ class MovieController extends Controller
         $this->validate($request, [
             'title' => 'required',
             'director' => 'required',
-            'duration' => 'required'
+            'duration' => 'required',
+            'image' => 'required'
         ]);
+        
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $imageName = $image->getClientOriginalName(); // Set imageName to the original file name
+            $image->move(public_path('public/images/'), $imageName);
+        }
+        
         //Fungsi Simpan Data ke dalam Database
         Movie::create([
             'title' => $request->title,
             'director' => $request->director,
-            'duration' => $request->duration
+            'duration' => $request->duration,
+            'image' => 'public/images/' . $imageName
         ]);
+
         try {
             return redirect()->route('movie.index');
         } catch (Exception $e) {
@@ -80,16 +91,26 @@ class MovieController extends Controller
         $this->validate($request, [
             'title' => 'required',
             'director' => 'required',
-            'duration' => 'required'
+            'duration' => 'required',
+            'image' => 'required'
         ]);
+
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $imageName = $image->getClientOriginalName(); // Set imageName to the original file name
+            $image->move(public_path('public/images/'), $imageName);
+        }else {
+            $imageName = $movie->image;
+        }
+
         $movie->update([
             'title' => $request->title,
             'director' => $request->director,
-            'duration' => $request->duration
+            'duration' => $request->duration,
+            'image' => 'public/images/' . $imageName
         ]);
         return redirect()->route('movie.index')->with([
-            'success' => 'Data
-Berhasil Diubah!'
+            'success' => 'Data Berhasil Diubah!'
         ]);
     }
     /**

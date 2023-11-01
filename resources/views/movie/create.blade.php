@@ -31,10 +31,20 @@
                         enctype="multipart/form-data"> 
                             @csrf 
                             <div class="form-row">
+                                <div class="form-group col-md-12">
+                                    <label class="font-weight-bold">Image</label> 
+                                    <input type="file" class="form-control @error('image')is-invalid @enderror" 
+                                    name="image" value="{{ old('image') }}" placeholder="Masukkan Image">
+                                    @error('image') 
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                    @enderror
+                                </div> 
                             </div> 
                             <div class="form-row"> 
                                 <div class="form-group col-md-12">
-                                    <label class="font-weightbold">Title</label> 
+                                    <label class="font-weight-bold">Title</label> 
                                     <input type="text" class="form-control @error('title')is-invalid @enderror" 
                                     name="title" value="{{ old('title') }}" placeholder="Masukkan Title">
                                     @error('title') 
@@ -46,7 +56,7 @@
                             </div> 
                             <div class="form-row">
                                 <div class="form-group col-md-6"> 
-                                    <label class="font-weightbold">Director</label> 
+                                    <label class="font-weight-bold">Director</label> 
                                     <input type="text" class="form-control @error('director') is-invalid @enderror" 
                                     name="director" value="{{old('director') }}" placeholder="Masukkan Director">
                                     @error('director')
@@ -56,7 +66,7 @@
                                     @enderror
                                 </div>
                                 <div class="form-group col-md-6">
-                                    <label class="font-weightbold">Duration</label>
+                                    <label class="font-weight-bold">Duration</label>
                                     <input type="number" class="form-control
                                     @error('duration') is-invalid @enderror" name="duration" value="{{
                                     old('duration') }}" placeholder="Masukkan Duration">
@@ -67,7 +77,7 @@
                                     @enderror
                                 </div>
                             </div>
-                            <button type="submit" class="btn btn-md btnprimary">SIMPAN</button>
+                            <button type="submit" class="btn btn-md btn-primary">SIMPAN</button>
                         </form>
                     </div>
                     <!-- /.card-body -->
