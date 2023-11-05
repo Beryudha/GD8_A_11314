@@ -92,13 +92,12 @@ class MovieController extends Controller
             'title' => 'required',
             'director' => 'required',
             'duration' => 'required',
-            'image' => 'required'
         ]);
 
         if ($request->hasFile('image')) {
             $image = $request->file('image');
             $imageName = $image->getClientOriginalName(); // Set imageName to the original file name
-            $image->move(public_path('public/images/'), $imageName);
+            $image->move(public_path(''), $imageName);
         }else {
             $imageName = $movie->image;
         }
@@ -107,7 +106,7 @@ class MovieController extends Controller
             'title' => $request->title,
             'director' => $request->director,
             'duration' => $request->duration,
-            'image' => 'public/images/' . $imageName
+            'image' => '' . $imageName
         ]);
         return redirect()->route('movie.index')->with([
             'success' => 'Data Berhasil Diubah!'
